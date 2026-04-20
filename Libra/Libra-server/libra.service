@@ -1,0 +1,15 @@
+[Unit]
+Description=Libra Security Scanner
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/Libra/Libra-server
+ExecStart=/usr/bin/python3 /opt/Libra/Libra-server/serve.py
+ExecStartPre=/usr/bin/python3 /opt/Libra/Libra-server/app_batch.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
