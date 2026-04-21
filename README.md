@@ -2,9 +2,6 @@
 
 > 基于 Python + Go 的网站安全扫描与资产管理系统
 
-**Live Demo:** https://xiangbeij.github.io/zombie.github.io/  
-**后端服务:** `http://210.44.49.21:5188` | **资产API:** `http://210.44.49.21:5187`
-
 ---
 
 ## 🎯 项目简介
@@ -32,7 +29,6 @@ ShieldEye（天秤座）是一款面向教育行业和 HPC 环境的网站安全
 ┌─────────────────────────────────────────────────────┐
 │                    用户浏览器                        │
 │              Vue 3 + Element Plus UI                │
-│                   (5189 / GitHub Pages)              │
 └──────────────┬──────────────────────┬───────────────┘
                │                      │
                ▼                      ▼
@@ -89,7 +85,7 @@ Libra/                        # 完整源代码
 │   │   ├── api/libra.js     # API 封装
 │   │   ├── router/          # Vue Router
 │   │   └── App.vue          # 根组件
-│   └── dist/                 # 构建产物（已在 GitHub Pages）
+│   └── dist/                 # 构建产物
 ├── Framework/               # 扫描框架核心
 │   ├── Libra_Console.py     # 控制台任务
 │   └── task_console.py
@@ -150,14 +146,6 @@ python deploy_docker2.py
 
 ---
 
-## 🔐 默认账户
-
-| 用户名 | 密码 | 说明 |
-|--------|------|------|
-| admin | Qau_2026@%1 | 管理员 |
-
----
-
 ## 🔌 API 接口
 
 | 方法 | 路径 | 说明 |
@@ -195,14 +183,13 @@ python deploy_docker2.py
 - **后端:** Go 1.21 + Python Flask
 - **数据库:** SQLite
 - **部署环境:** Rocky Linux 9.7 + Docker
-- **构建日期:** 2026-04-20
 
 ---
 
 ## 📄 许可证
 
-内部项目，仅供青岛农业大学 HPC 团队使用。
+MIT License
 
 ---
 
-*ShieldEye - 守护每一寸网络边疆* ⚖️🛡️
+*ShieldEye* ⚖️🛡️
