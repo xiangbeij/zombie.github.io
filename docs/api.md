@@ -1,15 +1,14 @@
-# API 接口文档
+﻿# API 鎺ュ彛鏂囨。
 
-ShieldEye 后端 API 采用 RESTful 设计，认证方式为 JWT Token。
-
+ORION 鍚庣 API 閲囩敤 RESTful 璁捐锛岃璇佹柟寮忎负 JWT Token銆?
 **Base URL:** `http://localhost:5188/api`  
-**资产 API Base URL:** `http://localhost:5187/api`
+**璧勪骇 API Base URL:** `http://localhost:5187/api`
 
 ---
 
-## 认证
+## 璁よ瘉
 
-### 登录
+### 鐧诲綍
 
 ```http
 POST /api/login
@@ -21,7 +20,7 @@ Content-Type: application/json
 }
 ```
 
-**响应:**
+**鍝嶅簲:**
 ```json
 {
   "code": 0,
@@ -30,13 +29,13 @@ Content-Type: application/json
 }
 ```
 
-> ⚠️ 后续请求需在 Header 中携带: `Authorization: Bearer <token>`
+> 鈿狅笍 鍚庣画璇锋眰闇€鍦?Header 涓惡甯? `Authorization: Bearer <token>`
 
 ---
 
-## 扫描接口
+## 鎵弿鎺ュ彛
 
-### 发起扫描
+### 鍙戣捣鎵弿
 
 ```http
 POST /api/scan
@@ -49,28 +48,27 @@ Content-Type: application/json
 }
 ```
 
-**scan_type 可选值:**
-- `HomePage_Scan` - 首页扫描
-- `Full_Scan` - 全站扫描
-- `Deep_Scan` - 深度扫描
+**scan_type 鍙€夊€?**
+- `HomePage_Scan` - 棣栭〉鎵弿
+- `Full_Scan` - 鍏ㄧ珯鎵弿
+- `Deep_Scan` - 娣卞害鎵弿
 
-**响应:**
+**鍝嶅簲:**
 ```json
 {
   "code": 0,
   "task_id": "1713512345678-a1b2c3",
-  "message": "扫描任务已提交"
+  "message": "鎵弿浠诲姟宸叉彁浜?
 }
 ```
 
-### 查询扫描状态
-
+### 鏌ヨ鎵弿鐘舵€?
 ```http
 GET /api/scan/:taskId
 Authorization: Bearer <token>
 ```
 
-**响应:**
+**鍝嶅簲:**
 ```json
 {
   "code": 0,
@@ -81,21 +79,21 @@ Authorization: Bearer <token>
 }
 ```
 
-### 删除扫描任务
+### 鍒犻櫎鎵弿浠诲姟
 
 ```http
 DELETE /api/scan/:taskId
 Authorization: Bearer <token>
 ```
 
-### 扫描历史列表
+### 鎵弿鍘嗗彶鍒楄〃
 
 ```http
 GET /api/tasks?limit=100&offset=0
 Authorization: Bearer <token>
 ```
 
-**响应:**
+**鍝嶅簲:**
 ```json
 {
   "code": 0,
@@ -115,9 +113,9 @@ Authorization: Bearer <token>
 
 ---
 
-## 批量扫描
+## 鎵归噺鎵弿
 
-### 创建批量扫描
+### 鍒涘缓鎵归噺鎵弿
 
 ```http
 POST /api/batch
@@ -134,18 +132,17 @@ Content-Type: application/json
 }
 ```
 
-**响应:**
+**鍝嶅簲:**
 ```json
 {
   "code": 0,
   "batch_id": "batch-1713512345678",
   "total": 3,
-  "message": "批量扫描已创建"
+  "message": "鎵归噺鎵弿宸插垱寤?
 }
 ```
 
-### 查询批量扫描状态
-
+### 鏌ヨ鎵归噺鎵弿鐘舵€?
 ```http
 GET /api/batch/:batchId
 Authorization: Bearer <token>
@@ -153,9 +150,9 @@ Authorization: Bearer <token>
 
 ---
 
-## 定时任务
+## 瀹氭椂浠诲姟
 
-### 创建定时任务
+### 鍒涘缓瀹氭椂浠诲姟
 
 ```http
 POST /api/schedule
@@ -163,21 +160,21 @@ Authorization: Bearer <token>
 Content-Type: application/json
 
 {
-  "name": "每周一例行扫描",
+  "name": "姣忓懆涓€渚嬭鎵弿",
   "url": "https://example.edu.cn",
   "scan_type": "HomePage_Scan",
   "cron": "0 8 * * 1"
 }
 ```
 
-### 定时任务列表
+### 瀹氭椂浠诲姟鍒楄〃
 
 ```http
 GET /api/schedule
 Authorization: Bearer <token>
 ```
 
-### 手动触发定时任务
+### 鎵嬪姩瑙﹀彂瀹氭椂浠诲姟
 
 ```http
 POST /api/schedule/:jobId/run
@@ -186,29 +183,28 @@ Authorization: Bearer <token>
 
 ---
 
-## 报告
+## 鎶ュ憡
 
-### 下载报告
+### 涓嬭浇鎶ュ憡
 
 ```http
 GET /api/report/:taskId?format=pdf
 Authorization: Bearer <token>
 ```
 
-**format 可选值:** `json`, `pdf`, `html`
+**format 鍙€夊€?** `json`, `pdf`, `html`
 
 ---
 
-## 统计与监控
-
-### 威胁统计聚合
+## 缁熻涓庣洃鎺?
+### 濞佽儊缁熻鑱氬悎
 
 ```http
 GET /api/threat-summary
 Authorization: Bearer <token>
 ```
 
-**响应:**
+**鍝嶅簲:**
 ```json
 {
   "code": 0,
@@ -222,7 +218,7 @@ Authorization: Bearer <token>
 }
 ```
 
-### 监控面板数据
+### 鐩戞帶闈㈡澘鏁版嵁
 
 ```http
 GET /api/dashboard/stats
@@ -231,31 +227,29 @@ Authorization: Bearer <token>
 
 ---
 
-## 资产接口 (端口 5187)
+## 璧勪骇鎺ュ彛 (绔彛 5187)
 
-### 资产列表
+### 璧勪骇鍒楄〃
 
 ```http
 GET /api/assets?page=1&page_size=20&search=example
 Authorization: Bearer <token>
 ```
 
-### 添加 IP 段
-
+### 娣诲姞 IP 娈?
 ```http
 POST /api/assets/ip-ranges
 Authorization: Bearer <token>
 Content-Type: application/json
 
 {
-  "name": "办公网段",
+  "name": "鍔炲叕缃戞",
   "ip_range": "192.168.1.0/24",
   "ports": "80,443,8080,5188"
 }
 ```
 
-### 触发 IP 段扫描
-
+### 瑙﹀彂 IP 娈垫壂鎻?
 ```http
 POST /api/assets/scan/ip
 Authorization: Bearer <token>
@@ -268,7 +262,7 @@ Content-Type: application/json
 }
 ```
 
-### 域名爬取
+### 鍩熷悕鐖彇
 
 ```http
 POST /api/assets/scan/domain
@@ -281,7 +275,7 @@ Content-Type: application/json
 }
 ```
 
-### 证书导入
+### 璇佷功瀵煎叆
 
 ```http
 POST /api/assets/scan/cert
@@ -293,7 +287,7 @@ Content-Type: application/json
 }
 ```
 
-### 篡改告警列表
+### 绡℃敼鍛婅鍒楄〃
 
 ```http
 GET /api/assets/alerts
@@ -302,16 +296,16 @@ Authorization: Bearer <token>
 
 ---
 
-## 规则管理
+## 瑙勫垯绠＄悊
 
-### 规则列表
+### 瑙勫垯鍒楄〃
 
 ```http
 GET /api/rules
 Authorization: Bearer <token>
 ```
 
-### 导出规则
+### 瀵煎嚭瑙勫垯
 
 ```http
 GET /api/rules?format=export
@@ -320,19 +314,18 @@ Authorization: Bearer <token>
 
 ---
 
-## 错误码
-
-| 错误码 | 说明 |
+## 閿欒鐮?
+| 閿欒鐮?| 璇存槑 |
 |--------|------|
-| 0 | 成功 |
-| 1001 | 参数错误 |
-| 1002 | 认证失败 |
-| 1003 | Token 过期 |
-| 2001 | 扫描失败 |
-| 2002 | 目标不可达 |
-| 3001 | 数据库错误 |
-| 3002 | 文件系统错误 |
+| 0 | 鎴愬姛 |
+| 1001 | 鍙傛暟閿欒 |
+| 1002 | 璁よ瘉澶辫触 |
+| 1003 | Token 杩囨湡 |
+| 2001 | 鎵弿澶辫触 |
+| 2002 | 鐩爣涓嶅彲杈?|
+| 3001 | 鏁版嵁搴撻敊璇?|
+| 3002 | 鏂囦欢绯荤粺閿欒 |
 
 ---
 
-*API 文档最后更新: 2026-04-20*
+*API 鏂囨。鏈€鍚庢洿鏂? 2026-04-20*

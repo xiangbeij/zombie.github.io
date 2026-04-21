@@ -1,195 +1,159 @@
-# ⚖️ ShieldEye - 网站安全监测平台
+﻿# 鈿栵笍 ORION - 缃戠珯瀹夊叏鐩戞祴骞冲彴
 
-> 基于 Python + Go 的网站安全扫描与资产管理系统
+> 鍩轰簬 Python + Go 鐨勭綉绔欏畨鍏ㄦ壂鎻忎笌璧勪骇绠＄悊绯荤粺
 
 ---
 
-## 🎯 项目简介
+## 馃幆 椤圭洰绠€浠?
+ORION锛堝ぉ绉ゅ骇锛夋槸涓€娆鹃潰鍚戞暀鑲茶涓氬拰 HPC 鐜鐨勭綉绔欏畨鍏ㄧ洃娴嬪钩鍙帮紝鏀寔鎵归噺鎵弿銆佸畾鏃朵换鍔°€佽祫浜у彂鐜般€佺鏀圭洃鎺с€佹姤鍛婂鍑哄拰 AI 鏅鸿兘鍒嗘瀽銆?
+### 鏍稿績鍔熻兘
 
-ShieldEye（天秤座）是一款面向教育行业和 HPC 环境的网站安全监测平台，支持批量扫描、定时任务、资产发现、篡改监控、报告导出和 AI 智能分析。
-
-### 核心功能
-
-| 功能 | 说明 |
+| 鍔熻兘 | 璇存槑 |
 |------|------|
-| 🔍 **批量安全扫描** | 暗链检测、WebShell后门识别、敏感信息泄露、违规内容扫描 |
-| ⏰ **定时任务** | 支持 Cron 表达式定时扫描，可按天/周/月周期执行 |
-| 🌍 **资产发现** | IP段扫描、域名爬取、SSL证书导入，完整资产管理 |
-| 📸 **篡改监控** | 页面快照 + Hash 对比，变化超30%自动告警 |
-| 📊 **监控面板** | 威胁聚合统计、扫描趋势图、告警列表 |
-| 📄 **报告导出** | 支持 PDF 和 JSON 格式扫描报告 |
-| 🤖 **AI 分析** | 集成本地 Ollama 模型，智能分析扫描结果 |
-| 🔐 **认证授权** | JWT Token 登录认证 |
+| 馃攳 **鎵归噺瀹夊叏鎵弿** | 鏆楅摼妫€娴嬨€乄ebShell鍚庨棬璇嗗埆銆佹晱鎰熶俊鎭硠闇层€佽繚瑙勫唴瀹规壂鎻?|
+| 鈴?**瀹氭椂浠诲姟** | 鏀寔 Cron 琛ㄨ揪寮忓畾鏃舵壂鎻忥紝鍙寜澶?鍛?鏈堝懆鏈熸墽琛?|
+| 馃實 **璧勪骇鍙戠幇** | IP娈垫壂鎻忋€佸煙鍚嶇埇鍙栥€丼SL璇佷功瀵煎叆锛屽畬鏁磋祫浜х鐞?|
+| 馃摳 **绡℃敼鐩戞帶** | 椤甸潰蹇収 + Hash 瀵规瘮锛屽彉鍖栬秴30%鑷姩鍛婅 |
+| 馃搳 **鐩戞帶闈㈡澘** | 濞佽儊鑱氬悎缁熻銆佹壂鎻忚秼鍔垮浘銆佸憡璀﹀垪琛?|
+| 馃搫 **鎶ュ憡瀵煎嚭** | 鏀寔 PDF 鍜?JSON 鏍煎紡鎵弿鎶ュ憡 |
+| 馃 **AI 鍒嗘瀽** | 闆嗘垚鏈湴 Ollama 妯″瀷锛屾櫤鑳藉垎鏋愭壂鎻忕粨鏋?|
+| 馃攼 **璁よ瘉鎺堟潈** | JWT Token 鐧诲綍璁よ瘉 |
 
 ---
 
-## 🏗️ 系统架构
+## 馃彈锔?绯荤粺鏋舵瀯
 
 ```
-┌─────────────────────────────────────────────────────┐
-│                    用户浏览器                        │
-│              Vue 3 + Element Plus UI                │
-└──────────────┬──────────────────────┬───────────────┘
-               │                      │
-               ▼                      ▼
-┌──────────────────────────┐  ┌─────────────────────────┐
-│    Go API (主服务)         │  │  Flask 资产 API          │
-│    Port 5188              │  │  Port 5187               │
-│  · 扫描/定时/规则/报告     │  │  · 资产增删改查            │
-│  · Worker Pool (20并发)   │  │  · IP段扫描              │
-│  · JWT 认证               │  │  · 域名爬取/证书导入       │
-│  · SQLite 数据库          │  │  · 篡改告警               │
-└──────────────────────────┘  └─────────────────────────┘
-               ▲                      ▲
-               │                      │
-        ┌──────┴──────────────────────┘
-        │         Python Libra.py (扫描核心)
-        │         配置: Config/
-        │         框架: Framework/
-        │         模块: Moudle/ + ORM/
-        │         工具: Tools/
-        └───────────────────────────────────► 目标网站
+鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹?                   鐢ㄦ埛娴忚鍣?                       鈹?鈹?             Vue 3 + Element Plus UI                鈹?鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?               鈹?                     鈹?               鈻?                     鈻?鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹? 鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹?   Go API (涓绘湇鍔?         鈹? 鈹? Flask 璧勪骇 API          鈹?鈹?   Port 5188              鈹? 鈹? Port 5187               鈹?鈹? 路 鎵弿/瀹氭椂/瑙勫垯/鎶ュ憡     鈹? 鈹? 路 璧勪骇澧炲垹鏀规煡            鈹?鈹? 路 Worker Pool (20骞跺彂)   鈹? 鈹? 路 IP娈垫壂鎻?             鈹?鈹? 路 JWT 璁よ瘉               鈹? 鈹? 路 鍩熷悕鐖彇/璇佷功瀵煎叆       鈹?鈹? 路 SQLite 鏁版嵁搴?         鈹? 鈹? 路 绡℃敼鍛婅               鈹?鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹? 鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?               鈻?                     鈻?               鈹?                     鈹?        鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹粹攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?        鈹?        Python orion.py (鎵弿鏍稿績)
+        鈹?        閰嶇疆: Config/
+        鈹?        妗嗘灦: Framework/
+        鈹?        妯″潡: Moudle/ + ORM/
+        鈹?        宸ュ叿: Tools/
+        鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈻?鐩爣缃戠珯
 ```
 
 ---
 
-## 📁 项目结构
+## 馃搧 椤圭洰缁撴瀯
 
 ```
-Libra/                        # 完整源代码
-├── Libra.py                  # 扫描入口（Python）
-├── Libra.db                  # SQLite 数据库
-├── Libra-server/             # 后端服务
-│   ├── go/                   # Go API 源码
-│   │   ├── main.go          # 主入口
-│   │   ├── handlers.go      # HTTP 处理器
-│   │   ├── workers.go       # Worker Pool
-│   │   ├── state.go         # 状态管理
-│   │   ├── models.go        # 数据模型
-│   │   └── db.go            # SQLite 操作
-│   ├── libra_assets.py      # Flask 资产API
-│   ├── app.py               # Flask 主服务（旧）
-│   └── migrations/          # 数据库迁移脚本
-├── Libra-web/               # Vue 3 前端
-│   ├── src/
-│   │   ├── views/           # 页面组件
-│   │   │   ├── Dashboard.vue      # 监控面板
-│   │   │   ├── Scan.vue           # 发起扫描
-│   │   │   ├── BatchScan.vue      # 批量扫描
-│   │   │   ├── History.vue        # 扫描历史
-│   │   │   ├── Schedule.vue       # 定时任务
-│   │   │   ├── Rules.vue          # 规则管理
-│   │   │   ├── Assets.vue         # 资产发现
-│   │   │   ├── Login.vue          # 登录页面
-│   │   │   └── ...
-│   │   ├── api/libra.js     # API 封装
-│   │   ├── router/          # Vue Router
-│   │   └── App.vue          # 根组件
-│   └── dist/                 # 构建产物
-├── Framework/               # 扫描框架核心
-│   ├── Libra_Console.py     # 控制台任务
-│   └── task_console.py
-├── Moudle/                  # 扫描模块
-│   ├── task_crawler.py     # 网页爬虫
-│   ├── task_response.py    # 响应分析
-│   └── task_rulefind.py    # 规则匹配
-├── ORM/                     # 数据库操作
-│   └── db_*.py
-├── Config/                  # 配置文件
-│   ├── config_banner.py
-│   ├── config_crawler.py
-│   ├── config_db.py
-│   └── ...
-└── Tools/                   # 工具函数
+Orion/                        # 瀹屾暣婧愪唬鐮?鈹溾攢鈹€ orion.py                  # 鎵弿鍏ュ彛锛圥ython锛?鈹溾攢鈹€ orion.db                  # SQLite 鏁版嵁搴?鈹溾攢鈹€ Orion-server/             # 鍚庣鏈嶅姟
+鈹?  鈹溾攢鈹€ go/                   # Go API 婧愮爜
+鈹?  鈹?  鈹溾攢鈹€ main.go          # 涓诲叆鍙?鈹?  鈹?  鈹溾攢鈹€ handlers.go      # HTTP 澶勭悊鍣?鈹?  鈹?  鈹溾攢鈹€ workers.go       # Worker Pool
+鈹?  鈹?  鈹溾攢鈹€ state.go         # 鐘舵€佺鐞?鈹?  鈹?  鈹溾攢鈹€ models.go        # 鏁版嵁妯″瀷
+鈹?  鈹?  鈹斺攢鈹€ db.go            # SQLite 鎿嶄綔
+鈹?  鈹溾攢鈹€ orion_assets.py      # Flask 璧勪骇API
+鈹?  鈹溾攢鈹€ app.py               # Flask 涓绘湇鍔★紙鏃э級
+鈹?  鈹斺攢鈹€ migrations/          # 鏁版嵁搴撹縼绉昏剼鏈?鈹溾攢鈹€ Orion-web/               # Vue 3 鍓嶇
+鈹?  鈹溾攢鈹€ src/
+鈹?  鈹?  鈹溾攢鈹€ views/           # 椤甸潰缁勪欢
+鈹?  鈹?  鈹?  鈹溾攢鈹€ Dashboard.vue      # 鐩戞帶闈㈡澘
+鈹?  鈹?  鈹?  鈹溾攢鈹€ Scan.vue           # 鍙戣捣鎵弿
+鈹?  鈹?  鈹?  鈹溾攢鈹€ BatchScan.vue      # 鎵归噺鎵弿
+鈹?  鈹?  鈹?  鈹溾攢鈹€ History.vue        # 鎵弿鍘嗗彶
+鈹?  鈹?  鈹?  鈹溾攢鈹€ Schedule.vue       # 瀹氭椂浠诲姟
+鈹?  鈹?  鈹?  鈹溾攢鈹€ Rules.vue          # 瑙勫垯绠＄悊
+鈹?  鈹?  鈹?  鈹溾攢鈹€ Assets.vue         # 璧勪骇鍙戠幇
+鈹?  鈹?  鈹?  鈹溾攢鈹€ Login.vue          # 鐧诲綍椤甸潰
+鈹?  鈹?  鈹?  鈹斺攢鈹€ ...
+鈹?  鈹?  鈹溾攢鈹€ api/Orion.js     # API 灏佽
+鈹?  鈹?  鈹溾攢鈹€ router/          # Vue Router
+鈹?  鈹?  鈹斺攢鈹€ App.vue          # 鏍圭粍浠?鈹?  鈹斺攢鈹€ dist/                 # 鏋勫缓浜х墿
+鈹溾攢鈹€ Framework/               # 鎵弿妗嗘灦鏍稿績
+鈹?  鈹溾攢鈹€ Orion_Console.py     # 鎺у埗鍙颁换鍔?鈹?  鈹斺攢鈹€ task_console.py
+鈹溾攢鈹€ Moudle/                  # 鎵弿妯″潡
+鈹?  鈹溾攢鈹€ task_crawler.py     # 缃戦〉鐖櫕
+鈹?  鈹溾攢鈹€ task_response.py    # 鍝嶅簲鍒嗘瀽
+鈹?  鈹斺攢鈹€ task_rulefind.py    # 瑙勫垯鍖归厤
+鈹溾攢鈹€ ORM/                     # 鏁版嵁搴撴搷浣?鈹?  鈹斺攢鈹€ db_*.py
+鈹溾攢鈹€ Config/                  # 閰嶇疆鏂囦欢
+鈹?  鈹溾攢鈹€ config_banner.py
+鈹?  鈹溾攢鈹€ config_crawler.py
+鈹?  鈹溾攢鈹€ config_db.py
+鈹?  鈹斺攢鈹€ ...
+鈹斺攢鈹€ Tools/                   # 宸ュ叿鍑芥暟
 ```
 
 ---
 
-## 🚀 快速部署
-
-### 方式一：直接部署（推荐）
-
+## 馃殌 蹇€熼儴缃?
+### 鏂瑰紡涓€锛氱洿鎺ラ儴缃诧紙鎺ㄨ崘锛?
 ```bash
-# 1. 安装依赖
-pip install -r Libra/requirements.txt
+# 1. 瀹夎渚濊禆
+pip install -r Orion/requirements.txt
 
-# 2. 安装 Go 1.21+
-# 3. 编译 Go API
-cd Libra/Libra-server/go
-go build -o libra-api-new-linux .
-CGO_ENABLED=1 go build -o libra-api-new2-linux .
+# 2. 瀹夎 Go 1.21+
+# 3. 缂栬瘧 Go API
+cd Orion/Orion-server/go
+go build -o orion-api-new-linux .
+CGO_ENABLED=1 go build -o orion-api-new2-linux .
 
-# 4. 启动 Flask API
-python Libra/Libra-server/app_batch.py &
+# 4. 鍚姩 Flask API
+python Orion/Orion-server/app_batch.py &
 
-# 5. 启动 Go API
-./Libra/Libra-server/go/libra-api-new-linux &
+# 5. 鍚姩 Go API
+./Orion/Orion-server/go/orion-api-new-linux &
 
-# 6. 启动资产 Flask API
-python Libra/Libra-server/libra_assets.py &
+# 6. 鍚姩璧勪骇 Flask API
+python Orion/Orion-server/orion_assets.py &
 
-# 7. 构建前端
-cd Libra/Libra-web
+# 7. 鏋勫缓鍓嶇
+cd Orion/Orion-web
 npm install
 npm run build
 
-# 8. 启动静态文件服务
-python Libra/Libra-server/serve.py
+# 8. 鍚姩闈欐€佹枃浠舵湇鍔?python Orion/Orion-server/serve.py
 ```
 
-### 方式二：Docker 部署
+### 鏂瑰紡浜岋細Docker 閮ㄧ讲
 
 ```bash
-cd Libra
+cd Orion
 python deploy_docker2.py
 ```
 
 ---
 
-## 🔌 API 接口
+## 馃攲 API 鎺ュ彛
 
-| 方法 | 路径 | 说明 |
+| 鏂规硶 | 璺緞 | 璇存槑 |
 |------|------|------|
-| POST | `/api/scan` | 发起扫描 |
-| GET | `/api/scan/:taskId` | 查询扫描状态 |
-| GET | `/api/tasks` | 扫描历史列表 |
-| POST | `/api/batch` | 批量扫描 |
-| GET | `/api/schedule` | 定时任务列表 |
-| POST | `/api/schedule` | 创建定时任务 |
-| GET | `/api/report/:taskId` | 下载报告 |
-| GET | `/api/health` | 健康检查 |
-| GET | `/api/threat-summary` | 威胁统计 |
-| GET | `/api/assets/stats` | 资产统计 |
-| GET | `/api/assets/alerts` | 篡改告警列表 |
+| POST | `/api/scan` | 鍙戣捣鎵弿 |
+| GET | `/api/scan/:taskId` | 鏌ヨ鎵弿鐘舵€?|
+| GET | `/api/tasks` | 鎵弿鍘嗗彶鍒楄〃 |
+| POST | `/api/batch` | 鎵归噺鎵弿 |
+| GET | `/api/schedule` | 瀹氭椂浠诲姟鍒楄〃 |
+| POST | `/api/schedule` | 鍒涘缓瀹氭椂浠诲姟 |
+| GET | `/api/report/:taskId` | 涓嬭浇鎶ュ憡 |
+| GET | `/api/health` | 鍋ュ悍妫€鏌?|
+| GET | `/api/threat-summary` | 濞佽儊缁熻 |
+| GET | `/api/assets/stats` | 璧勪骇缁熻 |
+| GET | `/api/assets/alerts` | 绡℃敼鍛婅鍒楄〃 |
 
-详细 API 文档见 [docs/api.md](docs/api.md)
-
----
-
-## ⚙️ 配置说明
-
-主要配置文件位于 `Libra/Config/`:
-
-- `config_db.py` - 数据库连接
-- `config_crawler.py` - 爬虫参数（超时、代理、Header）
-- `config_proxies.py` - 代理池配置
-- `config_requests.py` - HTTP 请求配置
+璇︾粏 API 鏂囨。瑙?[docs/api.md](docs/api.md)
 
 ---
 
-## 📋 版本信息
+## 鈿欙笍 閰嶇疆璇存槑
 
-- **前端框架:** Vue 3 + Vite + Element Plus + ECharts
-- **后端:** Go 1.21 + Python Flask
-- **数据库:** SQLite
-- **部署环境:** Rocky Linux 9.7 + Docker
+涓昏閰嶇疆鏂囦欢浣嶄簬 `Orion/Config/`:
+
+- `config_db.py` - 鏁版嵁搴撹繛鎺?- `config_crawler.py` - 鐖櫕鍙傛暟锛堣秴鏃躲€佷唬鐞嗐€丠eader锛?- `config_proxies.py` - 浠ｇ悊姹犻厤缃?- `config_requests.py` - HTTP 璇锋眰閰嶇疆
 
 ---
 
-## 📄 许可证
+## 馃搵 鐗堟湰淇℃伅
 
+- **鍓嶇妗嗘灦:** Vue 3 + Vite + Element Plus + ECharts
+- **鍚庣:** Go 1.21 + Python Flask
+- **鏁版嵁搴?** SQLite
+- **閮ㄧ讲鐜:** Rocky Linux 9.7 + Docker
+
+---
+
+## 馃搫 璁稿彲璇?
 MIT License
 
 ---
 
-*ShieldEye* ⚖️🛡️
+*ORION* 鈿栵笍馃洝锔?
